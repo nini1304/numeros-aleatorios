@@ -22,7 +22,7 @@ body{
   display: flex;
   flex-direction: row;
   gap:8%;
-  width: 30%;
+  width: 35%;
 }
 .botones{
   display:flex;
