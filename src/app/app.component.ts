@@ -29,6 +29,12 @@ export class AppComponent {
 
   }
 
+  abrirProductosMedios() {
+
+    this.router.navigate(['/productos-medios']);
+
+  }
+
   abrirInicio() {
 
     this.router.navigate(['']);
@@ -36,27 +42,7 @@ export class AppComponent {
   }
 
 
-  obtenerValores(): void {
-    console.log('Valor de a:', this.valuea);
-    console.log('Valor de b:', this.valueb);
-  }
 
-  obtenerCuatroDigitosCentrales(): string {
-    // Realiza la multiplicación
-    let resultado = (this.valuea * this.valueb).toString();
 
-    // Si la longitud no es par, agrega ceros a la izquierda
-    if (resultado.length % 2 !== 0) {
-      resultado = "0" + resultado;
-    }
 
-    // Calcula la posición de inicio para los 4 dígitos centrales
-    const start = Math.floor((resultado.length - 4) / 2);
-
-    // Obtiene los 4 dígitos centrales
-    const digitosCentrales = resultado.substring(start, start + 4);
-    console.log('Digitos centrales:', digitosCentrales);
-
-    return digitosCentrales;
-  }
 }

@@ -11,22 +11,25 @@ import {MatSort, MatSortModule, SortDirection} from "@angular/material/sort";
 import {DatePipe} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 
-
-
 @Component({
-  selector: 'app-cuadrados-medios',
+  selector: 'app-productos-medios',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule,MatProgressSpinnerModule, MatTableModule, MatSortModule, MatPaginatorModule, DatePipe,HttpClientModule],
-  templateUrl: './cuadrados-medios.component.html',
-  styleUrl: './cuadrados-medios.component.css'
+  imports: [
+    MatFormFieldModule, MatInputModule, FormsModule, MatButtonModule, MatIconModule,MatProgressSpinnerModule, MatTableModule, MatSortModule, MatPaginatorModule, DatePipe,HttpClientModule
+  ],
+  templateUrl: './productos-medios.component.html',
+  styleUrl: './productos-medios.component.css'
 })
-export class CuadradosMediosComponent {
+export class ProductosMediosComponent {
   value = 0;
   value2 = 0;
-  Yi=0;
-  resultado='';
+  value3 = 0;
+  Yi='';
   Xi=0;
+  Xi1=0;
+  Xi11=0;
   ri=0;
+  aux1=0;
   aux2=0;
   numerosAleatorios: NumerosAleatorios[] = [];
   mensaje = '';
@@ -35,7 +38,7 @@ export class CuadradosMediosComponent {
 
   private _httpClient = inject(HttpClient);
 
-  displayedColumns: string[] = ['i', 'Yi','Resultado' ,'Xi', 'ri'];
+  displayedColumns: string[] = ['i', 'Xi1' ,'Xi','Yi','Xi11', 'ri'];
   data = new MatTableDataSource<NumerosAleatorios>(this.numerosAleatorios);
 
 
@@ -65,8 +68,14 @@ export class CuadradosMediosComponent {
     this.vaciarTabla();
     this.mensaje='';
   }
-  vaciarN(){
+
+  vaciarX1(){
     this.value2=0;
+    this.vaciarTabla();
+    this.mensaje='';
+  }
+  vaciarN(){
+    this.value3=0;
     this.vaciarTabla();
     this.mensaje='';
   }
@@ -74,6 +83,7 @@ export class CuadradosMediosComponent {
     this.vaciarTabla();
     this.value=0;
     this.value2=0;
+    this.value3=0;
     this.mensaje='';
   }
 
@@ -85,32 +95,35 @@ export class CuadradosMediosComponent {
   generarNumerosAleatorios() {
     this.flag = false;
     this.vaciarTabla();
-    this.aux2 = this.value;
-    const cantidadDigitos = this.aux2.toString().length;
+    this.aux1=this.value;
+    this.aux2 = this.value2;
+    const cantidadDigitos = this.aux1.toString().length;
 
-    for(let i = 1; i <= this.value2; i++) {
-      this.Yi = this.aux2;
-      const aux = Math.pow(this.Yi, 2);
-      this.resultado = aux.toString();
-      if (this.resultado.length % 2 !== 0) {
-        this.resultado = "0" + this.resultado;
+    for(let i = 1; i <= this.value3; i++) {
+      this.Xi1 = this.aux1;
+      this.Xi = this.aux2;
+      const aux = this.Xi * this.Xi1;
+      this.Yi = aux.toString();
+      if (this.Yi.length % 2 !== 0) {
+        this.Yi = "0" + this.Yi;
       }
       // Calcula la posición de inicio para los 'cantidadDigitos' centrales
-      const start = Math.floor((this.resultado.length - cantidadDigitos) / 2);
-      const digitosCentrales = this.resultado.substring(start, start + cantidadDigitos);
-      this.Xi = parseInt(digitosCentrales);
+      const start = Math.floor((this.Yi.length - cantidadDigitos) / 2);
+      const digitosCentrales = this.Yi.substring(start, start + cantidadDigitos);
+      this.Xi11 = parseInt(digitosCentrales);
 
       if(this.flag==false){
-        if (this.Xi === 0 || this.numerosAleatorios.some(elemento => elemento.Xi === this.Xi)) {
+        if (this.Xi11 === 0 || this.numerosAleatorios.some(elemento => elemento.Xi11 === this.Xi11)) {
           this.mensaje = `La secuencia se degenera en la posición ${i} con el valor: ${this.Xi}`;
           this.flag = true;
         }
       }
 
 
-      this.ri=this.Xi/(Math.pow(10,cantidadDigitos));
-      this.numerosAleatorios.push({i: i, Yi: this.Yi, Resultado: this.resultado, Xi: this.Xi, ri: this.ri});
-      this.aux2 = this.Xi;
+      this.ri=this.Xi11/(Math.pow(10,cantidadDigitos));
+      this.numerosAleatorios.push({i: i, Xi1: this.Xi1, Xi: this.Xi, Yi: this.Yi,Xi11:this.Xi11, ri: this.ri});
+      this.aux1 = this.Xi;
+      this.aux2 = this.Xi11;
 
 
 
@@ -120,18 +133,14 @@ export class CuadradosMediosComponent {
     console.log(this.numerosAleatorios);
 
   }
+
 }
 
 export interface NumerosAleatorios {
   i: number;
-  Yi: number;
-  Resultado: string;
+  Xi1:number;
   Xi: number;
+  Yi: string;
+  Xi11:number;
   ri: number;
 }
-
-
-
-
-
-
