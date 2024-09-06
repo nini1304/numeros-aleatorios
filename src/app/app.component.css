@@ -1,0 +1,24 @@
+.menu{
+  display: flex;
+  flex-direction: row;
+  background-color: #222064;
+  height: 10%;
+
+}
+h2{
+  font-size: 18px;
+  color: white;
+  margin-left: 1%;
+  margin-top: 1%;
+
+}
+h2:hover{
+  color: #f26683;
+}
+/*img{*/
+/*  margin-top: 1%;*/
+/*  margin-left: 1%;*/
+/*  margin-bottom: 1%;*/
+/*  height: 60%;*/
+/*  width: 4%;*/
+/*}*/
