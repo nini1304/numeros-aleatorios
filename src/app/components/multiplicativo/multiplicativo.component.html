@@ -1,0 +1,143 @@
+<body>
+
+<div class="contenido">
+  <div class="entradas">
+
+    <div class="semilla">
+      <h2>Semilla:</h2>
+      <mat-form-field class="example-form-field">
+        <mat-label>x<sub>0</sub></mat-label>
+        <input matInput type="number" [(ngModel)]="value" (input)="validateNonNegative($event)">
+        @if (value) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="vaciarX()">
+          <mat-icon>close</mat-icon>
+        </button>
+        }
+      </mat-form-field>
+
+
+    </div>
+
+    <div class="K">
+      <h2>K:</h2>
+      <mat-form-field class="example-form-field">
+        <mat-label></mat-label>
+        <input matInput type="number" [(ngModel)]="value2" (input)="validateNonNegative($event)">
+        @if (value2) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="vaciarK()">
+          <mat-icon>close</mat-icon>
+        </button>
+        }
+      </mat-form-field>
+
+    </div>
+
+
+    <div class="a">
+      <h2>a:</h2>
+      <mat-form-field>
+        <mat-label>Elija un metodo</mat-label>
+        <mat-select [(ngModel)]="selectedValue">
+          <mat-option value="1">3+8k</mat-option>
+          <mat-option value="2" >5+8k</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+    </div>
+
+    <div class="numeros">
+      <h2>Cantidad a Generar:</h2>
+      <mat-form-field class="example-form-field">
+        <mat-label>P</mat-label>
+        <input matInput type="number" [(ngModel)]="value4" (input)="validateNonNegative($event)">
+        @if (value4) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="vaciarP()">
+          <mat-icon>close</mat-icon>
+        </button>
+        }
+      </mat-form-field>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+  <div class="botones">
+    <button mat-flat-button style="background-color: #C63C51" (click)="generarNumerosAleatorios()">Generar</button>
+    <button mat-flat-button style="background-color: #D95F59" (click)="vaciarTodo()">Limpiar</button>
+  </div>
+
+
+
+</div>
+<div class="tabla">
+  <div class="example-container mat-elevation-z8">
+    <div class="example-table-container">
+
+      <table mat-table [dataSource]="data" class="example-table"
+             matSort matSortActive="created" matSortDisableClear matSortDirection="desc">
+        <!-- Position Column -->
+        <ng-container matColumnDef="i">
+          <th mat-header-cell *matHeaderCellDef> i </th>
+          <td mat-cell *matCellDef="let element"> {{element.i}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="a">
+          <th mat-header-cell *matHeaderCellDef> a </th>
+          <td mat-cell *matCellDef="let element"> {{element.a}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="Xi-1">
+          <th mat-header-cell *matHeaderCellDef> Xi-1 </th>
+          <td mat-cell *matCellDef="let element"> {{element.Xi1}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="P">
+          <th mat-header-cell *matHeaderCellDef> P </th>
+          <td mat-cell *matCellDef="let element"> {{element.P}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="g">
+          <th mat-header-cell *matHeaderCellDef> g </th>
+          <td mat-cell *matCellDef="let element"> {{element.g}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="m">
+          <th mat-header-cell *matHeaderCellDef> m </th>
+          <td mat-cell *matCellDef="let element"> {{element.m}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Xi">
+          <th mat-header-cell *matHeaderCellDef> Xi </th>
+          <td mat-cell *matCellDef="let element"> {{element.Xi}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="ri">
+          <th mat-header-cell *matHeaderCellDef> ri </th>
+          <td mat-cell *matCellDef="let element"> {{element.ri}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+
+    <mat-paginator [length]="resultsLength" [pageSize]="50" aria-label="Select page of GitHub search results"></mat-paginator>
+  </div>
+</div>
+
+
+
+</body>
+

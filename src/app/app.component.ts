@@ -41,6 +41,12 @@ export class AppComponent {
 
   }
 
+  abrirMultiplicativo() {
+
+    this.router.navigate(['/multiplicativo']);
+
+  }
+
   abrirInicio() {
 
     this.router.navigate(['']);
