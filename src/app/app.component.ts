@@ -35,6 +35,12 @@ export class AppComponent {
 
   }
 
+  abrirLineal() {
+
+    this.router.navigate(['/lineal']);
+
+  }
+
   abrirInicio() {
 
     this.router.navigate(['']);
