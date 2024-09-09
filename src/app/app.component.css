@@ -1,7 +1,7 @@
 .menu{
   display: flex;
   flex-direction: row;
-  background-color: #222064;
+  background-color: #AF47D2;
   height: 10%;
 
 }
@@ -13,7 +13,7 @@ h2{
 
 }
 h2:hover{
-  color: #f26683;
+  color: #26355D;
 }
 /*img{*/
 /*  margin-top: 1%;*/

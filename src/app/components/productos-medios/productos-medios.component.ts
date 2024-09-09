@@ -114,7 +114,7 @@ export class ProductosMediosComponent {
 
       if(this.flag==false){
         if (this.Xi11 === 0 || this.numerosAleatorios.some(elemento => elemento.Xi11 === this.Xi11)) {
-          this.mensaje = `La secuencia se degenera en la posición ${i} con el valor: ${this.Xi}`;
+          this.mensaje = `La secuencia se degenera en la posición ${i} con el valor: ${this.Xi11}`;
           this.flag = true;
         }
       }
