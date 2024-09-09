@@ -104,8 +104,16 @@ export class ProductosMediosComponent {
       this.Xi = this.aux2;
       const aux = this.Xi * this.Xi1;
       this.Yi = aux.toString();
-      if (this.Yi.length % 2 !== 0) {
-        this.Yi = "0" + this.Yi;
+
+      if(cantidadDigitos % 2 !== 0) {
+        if (this.Yi.length % 2 == 0) {
+          this.Yi = "0" + this.Yi;
+        }
+
+      }else{
+        if (this.Yi.length % 2 !== 0) {
+          this.Yi = "0" + this.Yi;
+        }
       }
       // Calcula la posición de inicio para los 'cantidadDigitos' centrales
       const start = Math.floor((this.Yi.length - cantidadDigitos) / 2);

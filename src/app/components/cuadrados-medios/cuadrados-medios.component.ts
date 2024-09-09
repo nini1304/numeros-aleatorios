@@ -92,9 +92,17 @@ export class CuadradosMediosComponent {
       this.Yi = this.aux2;
       const aux = Math.pow(this.Yi, 2);
       this.resultado = aux.toString();
-      if (this.resultado.length % 2 !== 0) {
-        this.resultado = "0" + this.resultado;
+      if(cantidadDigitos % 2 !== 0) {
+        if (this.resultado.length % 2 == 0) {
+          this.resultado = "0" + this.resultado;
+        }
+
+      }else{
+        if (this.resultado.length % 2 !== 0) {
+          this.resultado = "0" + this.resultado;
+        }
       }
+
       // Calcula la posición de inicio para los 'cantidadDigitos' centrales
       const start = Math.floor((this.resultado.length - cantidadDigitos) / 2);
       const digitosCentrales = this.resultado.substring(start, start + cantidadDigitos);
