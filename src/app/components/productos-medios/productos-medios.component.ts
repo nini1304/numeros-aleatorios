@@ -128,7 +128,8 @@ export class ProductosMediosComponent {
       }
 
 
-      this.ri=this.Xi11/(Math.pow(10,cantidadDigitos));
+      //this.ri=this.Xi11/(Math.pow(10,cantidadDigitos));
+      this.ri = parseFloat((this.Xi11 / Math.pow(10, cantidadDigitos)).toFixed(4));
       this.numerosAleatorios.push({i: i, Xi1: this.Xi1, Xi: this.Xi, Yi: this.Yi,Xi11:this.Xi11, ri: this.ri});
       this.aux1 = this.Xi;
       this.aux2 = this.Xi11;

@@ -108,7 +108,7 @@ export class LinealComponent {
       this.g= Math.ceil(Math.log(this.P) / Math.log(2));
       this.m= Math.pow(2,this.g);
       this.Xi= (this.a*this.Xi1+this.c)%this.m;
-      this.ri= this.Xi/(this.m-1);
+      this.ri= parseFloat((this.Xi/(this.m-1)).toFixed(4));
       this.numerosAleatorios.push({
         i: i,
         a: this.a,

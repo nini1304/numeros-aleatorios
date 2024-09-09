@@ -119,7 +119,8 @@ export class MultiplicativoComponent {
       this.g= Math.ceil((Math.log(this.P) / Math.log(2))+2);
       this.m= Math.pow(2,this.g);
       this.Xi= (this.a*this.Xi1)%this.m;
-      this.ri= this.Xi/(this.m-1);
+      //this.ri= this.Xi/(this.m-1);
+      this.ri= parseFloat((this.Xi/(this.m-1)).toFixed(4));
       this.numerosAleatorios.push({
         i: i,
         a: this.a,

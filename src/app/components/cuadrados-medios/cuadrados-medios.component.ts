@@ -116,7 +116,8 @@ export class CuadradosMediosComponent {
       }
 
 
-      this.ri=this.Xi/(Math.pow(10,cantidadDigitos));
+      //this.ri=this.Xi/(Math.pow(10,cantidadDigitos));
+      this.ri = parseFloat((this.Xi / Math.pow(10, cantidadDigitos)).toFixed(4));
       this.numerosAleatorios.push({i: i, Yi: this.Yi, Resultado: this.resultado, Xi: this.Xi, ri: this.ri});
       this.aux2 = this.Xi;
 
