@@ -59,12 +59,23 @@ export class LinealComponent {
 
   }
 
-  validateNonNegative(event: any) {
+  validateNonNegative(event: any, value: string) {
     const inputValue = event.target.value;
 
     if (inputValue < 0 || inputValue % 1 !== 0) {
       event.target.value = 0; // Si el valor es negativo, se corrige a 0
       alert('El valor no puede ser negativo ni decimal');
+      if(value=='value'){
+        this.value=0;
+      }else if(value=='value2'){
+        this.value2=0;
+      }else if(value=='value3') {
+        this.value4 = 0;
+      }else if(value=='value4') {
+        this.value5 = 0;
+      }else if(value=='value5') {
+        this.value5 = 0;
+      }
     }
   }
   vaciarX(){
