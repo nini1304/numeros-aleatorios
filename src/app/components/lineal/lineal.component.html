@@ -127,6 +127,11 @@
             <td mat-cell *matCellDef="let element"> {{element.Xi}} </td>
           </ng-container>
 
+          <ng-container matColumnDef="Operacion2">
+            <th mat-header-cell *matHeaderCellDef>Operacion de ri</th>
+            <td mat-cell *matCellDef="let element"> {{element.Xi}}/{{element.m-1}}</td>
+          </ng-container>
+
           <!-- Symbol Column -->
           <ng-container matColumnDef="ri">
             <th mat-header-cell *matHeaderCellDef> ri </th>

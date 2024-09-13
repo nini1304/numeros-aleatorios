@@ -12,6 +12,8 @@ import {DatePipe} from "@angular/common";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
+
 
 @Component({
   selector: 'app-multiplicativo',
@@ -24,6 +26,7 @@ import {MatSelectModule} from "@angular/material/select";
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
+    MatRadioModule
   ],
   templateUrl: './multiplicativo.component.html',
   styleUrl: './multiplicativo.component.css'
@@ -32,6 +35,7 @@ export class MultiplicativoComponent {
   value = 0;
   value2 = 0;
   value4 = 0;
+  value5 = 0;
   a= 0;
   Xi1= 0;
   P=0;
@@ -48,7 +52,7 @@ export class MultiplicativoComponent {
 
   private _httpClient = inject(HttpClient);
 
-  displayedColumns: string[] = ['i', 'a','Xi-1', 'P','g', 'm', 'Xi', 'ri'];
+  displayedColumns: string[] = ['i','Xi-1','Operacion', 'Xi','Operacion2', 'ri'];
   data = new MatTableDataSource<NumerosAleatorios>(this.numerosAleatorios);
 
 
@@ -65,32 +69,53 @@ export class MultiplicativoComponent {
 
   }
 
-  validateNonNegative(event: any) {
+  validateNonNegative(event: any, value: string) {
     const inputValue = event.target.value;
 
-    if (inputValue < 0) {
+    if (inputValue < 0 || inputValue % 1 !== 0) {
       event.target.value = 0; // Si el valor es negativo, se corrige a 0
-      alert('El valor no puede ser negativo');
+      alert('El valor no puede ser negativo ni decimal');
+      if(value=='value'){
+        this.value=0;
+      }else if(value=='value2'){
+        this.value2=0;
+      }else if(value=='value4') {
+        this.value4 = 0;
+      }else if(value=='value5') {
+        this.value5 = 0;
+      }
     }
   }
   vaciarX(){
     this.value=0;
     this.vaciarTabla();
+    this.g=0;
+    this.m=0;
+    this.a=0;
 
   }
   vaciarK(){
     this.value2=0;
     this.vaciarTabla();
-
-  }
-  vaciarC(){
-    this.selectedValue='';
-    this.vaciarTabla();
+    this.g=0;
+    this.m=0;
+    this.a=0;
 
   }
   vaciarP(){
     this.value4=0;
     this.vaciarTabla();
+    this.g=0;
+    this.m=0;
+    this.a=0;
+
+  }
+  vaciarD(){
+    this.value5=0;
+    this.vaciarTabla();
+    this.g=0;
+    this.m=0;
+    this.a=0;
 
   }
   vaciarTodo(){
@@ -99,6 +124,11 @@ export class MultiplicativoComponent {
     this.value2=0;
     this.selectedValue='';
     this.value4=0;
+    this.value5=0;
+    this.g=0;
+    this.m=0;
+    this.a=0;
+
   }
 
   vaciarTabla() {
@@ -107,37 +137,42 @@ export class MultiplicativoComponent {
   }
 
   generarNumerosAleatorios() {
-    this.vaciarTabla();
-    this.Xi1 = this.value;
-    for(let i = 1; i <= this.value4; i++) {
-      if(this.selectedValue == '1'){
-        this.a= (3+8*this.value2);
-      }else if(this.selectedValue == '2'){
-        this.a= (5+8*this.value2);
+    if(this.value==0 || this.value2==0 || this.value4==0 || this.value5==0){
+      alert('Por favor, ingrese todos los valores')
+    }else{
+      this.vaciarTabla();
+      this.Xi1 = this.value;
+      for(let i = 1; i <= this.value4; i++) {
+        if(this.selectedValue == '1'){
+          this.a= (3+8*this.value2);
+        }else if(this.selectedValue == '2'){
+          this.a= (5+8*this.value2);
+        }
+        this.P= this.value4;
+        this.g= Math.ceil((Math.log(this.P) / Math.log(2))+2);
+        this.m= Math.pow(2,this.g);
+        this.Xi= (this.a*this.Xi1)%this.m;
+        //this.ri= this.Xi/(this.m-1);
+        this.ri= parseFloat((this.Xi/(this.m-1)).toFixed(this.value5));
+        this.numerosAleatorios.push({
+          i: i,
+          a: this.a,
+          Xi1: this.Xi1,
+          P: this.P,
+          g: this.g,
+          m: this.m,
+          Xi: this.Xi,
+          ri: this.ri
+        });
+        this.Xi1 = this.Xi;
       }
-      this.P= this.value4;
-      this.g= Math.ceil((Math.log(this.P) / Math.log(2))+2);
-      this.m= Math.pow(2,this.g);
-      this.Xi= (this.a*this.Xi1)%this.m;
-      //this.ri= this.Xi/(this.m-1);
-      this.ri= parseFloat((this.Xi/(this.m-1)).toFixed(4));
-      this.numerosAleatorios.push({
-        i: i,
-        a: this.a,
-        Xi1: this.Xi1,
-        P: this.P,
-        g: this.g,
-        m: this.m,
-        Xi: this.Xi,
-        ri: this.ri
-      });
-      this.Xi1 = this.Xi;
+
+
+      this.data.data = this.numerosAleatorios;
+
+      console.log(this.numerosAleatorios);
     }
 
-
-    this.data.data = this.numerosAleatorios;
-
-    console.log(this.numerosAleatorios);
 
   }
 

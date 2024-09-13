@@ -4,6 +4,7 @@ body{
   background-position: center; /* Centra la imagen en el fondo */
   background-repeat: no-repeat;
 }
+
 .contenido{
   display:flex;
   flex-direction: column;
@@ -18,8 +19,8 @@ body{
 .semilla{
   display: flex;
   flex-direction: row;
-  margin-right: 2%;
   gap:6%;
+  margin-right: 1%;
 
 }
 .numeros{
@@ -32,15 +33,20 @@ body{
 .a{
   display: flex;
   flex-direction: row;
-  margin-right: 2%;
   gap:6%;
 
 }
 .K{
   display: flex;
   flex-direction: row;
-  margin-right: 2%;
   gap:6%;
+  margin-right: 1%;
+}
+.digitos{
+  display: flex;
+  flex-direction: row;
+  gap:6%;
+  width: 30%;
 }
 .botones{
   display:flex;
@@ -52,8 +58,21 @@ body{
 .mensaje{
   margin-left: 2%;
 }
-h2{
+.subtitulo{
   font-size:16px;
+  color: white;
+}
+.operaciones{
+  display:flex;
+  flex-direction: row;
+  margin-left: 2%;
+}
+.mensaje-texto{
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px;
+  display: inline-block;
+  font-size:18px;
   color: white;
 }
 .tabla{

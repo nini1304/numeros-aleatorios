@@ -42,7 +42,7 @@ export class LinealComponent {
 
   private _httpClient = inject(HttpClient);
 
-  displayedColumns: string[] = ['i','Xi-1' ,'c','Operacion', 'Xi', 'ri'];
+  displayedColumns: string[] = ['i','Xi-1' ,'c','Operacion', 'Xi','Operacion2', 'ri'];
   data = new MatTableDataSource<NumerosAleatorios>(this.numerosAleatorios);
 
 
