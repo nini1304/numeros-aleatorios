@@ -14,7 +14,11 @@ body{
   display: flex;
   flex-direction: row;
 }
-
+.entradas2{
+  padding: 0 2%;
+  display: flex;
+  flex-direction: row;
+}
 .semilla{
   display: flex;
   flex-direction: row;
@@ -27,6 +31,7 @@ body{
   flex-direction: row;
   gap:6%;
   width: 30%;
+
 }
 
 .constante{
@@ -39,8 +44,14 @@ body{
 .K{
   display: flex;
   flex-direction: row;
-  margin-right: 2%;
   gap:6%;
+  margin-right: 2%;
+}
+.digitos{
+  display: flex;
+  flex-direction: row;
+  gap:6%;
+  width: 30%;
 }
 .botones{
   display:flex;
@@ -52,8 +63,21 @@ body{
 .mensaje{
   margin-left: 2%;
 }
-h2{
+.subtitulo{
   font-size:16px;
+  color: white;
+}
+.operaciones{
+  display:flex;
+  flex-direction: row;
+  margin-left: 2%;
+}
+.mensaje-texto{
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px; /* Bordes redondeados */
+  padding: 10px;
+  display: inline-block;
+  font-size:18px;
   color: white;
 }
 .tabla{

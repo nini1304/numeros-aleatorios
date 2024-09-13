@@ -25,6 +25,7 @@ export class LinealComponent {
   value2 = 0;
   value3 = 0;
   value4 = 0;
+  value5 = 0;
   a= 0;
   Xi1= 0;
   c= 0;
@@ -40,7 +41,7 @@ export class LinealComponent {
 
   private _httpClient = inject(HttpClient);
 
-  displayedColumns: string[] = ['i', 'a','Xi-1' ,'c', 'P','g', 'm', 'Xi', 'ri'];
+  displayedColumns: string[] = ['i','Xi-1' ,'c','Operacion', 'Xi', 'ri'];
   data = new MatTableDataSource<NumerosAleatorios>(this.numerosAleatorios);
 
 
@@ -82,6 +83,11 @@ export class LinealComponent {
   }
   vaciarP(){
     this.value4=0;
+    this.vaciarTabla();
+
+  }
+  vaciarD(){
+    this.value5=0;
     this.vaciarTabla();
 
   }
