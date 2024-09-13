@@ -38,7 +38,7 @@ export class ProductosMediosComponent {
 
   private _httpClient = inject(HttpClient);
 
-  displayedColumns: string[] = ['i', 'Xi1' ,'Xi','Yi','Xi11', 'ri'];
+  displayedColumns: string[] = ['i', 'Xi1' ,'Xi','Operacion','Yi','Xi11', 'ri'];
   data = new MatTableDataSource<NumerosAleatorios>(this.numerosAleatorios);
 
 
@@ -58,9 +58,9 @@ export class ProductosMediosComponent {
   validateNonNegative(event: any) {
     const inputValue = event.target.value;
 
-    if (inputValue < 0) {
+    if (inputValue < 0 || inputValue % 1 !== 0) {
       event.target.value = 0; // Si el valor es negativo, se corrige a 0
-      alert('El valor no puede ser negativo');
+      alert('El valor no puede ser negativo ni decimal');
     }
   }
   vaciarX(){
@@ -93,53 +93,61 @@ export class ProductosMediosComponent {
   }
 
   generarNumerosAleatorios() {
-    this.flag = false;
-    this.vaciarTabla();
-    this.aux1=this.value;
-    this.aux2 = this.value2;
-    const cantidadDigitos = this.aux1.toString().length;
+    if(this.value==0 || this.value2==0 || this.value3==0){
+      alert('Por favor, ingrese todos los valores')
 
-    for(let i = 1; i <= this.value3; i++) {
-      this.Xi1 = this.aux1;
-      this.Xi = this.aux2;
-      const aux = this.Xi * this.Xi1;
-      this.Yi = aux.toString();
+    }else if(this.value.toString().length != this.value2.toString().length){
+      alert('Los valores de X0 y X1 deben tener la misma cantidad de digitos')
+    }else{
+      this.flag = false;
+      this.vaciarTabla();
+      this.aux1=this.value;
+      this.aux2 = this.value2;
+      const cantidadDigitos = this.aux1.toString().length;
 
-      if(cantidadDigitos % 2 !== 0) {
-        if (this.Yi.length % 2 == 0) {
-          this.Yi = "0" + this.Yi;
+      for(let i = 1; i <= this.value3; i++) {
+        this.Xi1 = this.aux1;
+        this.Xi = this.aux2;
+        const aux = this.Xi * this.Xi1;
+        this.Yi = aux.toString();
+
+        if(cantidadDigitos % 2 !== 0) {
+          if (this.Yi.length % 2 == 0) {
+            this.Yi = "0" + this.Yi;
+          }
+
+        }else{
+          if (this.Yi.length % 2 !== 0) {
+            this.Yi = "0" + this.Yi;
+          }
+        }
+        // Calcula la posición de inicio para los 'cantidadDigitos' centrales
+        const start = Math.floor((this.Yi.length - cantidadDigitos) / 2);
+        const digitosCentrales = this.Yi.substring(start, start + cantidadDigitos);
+        this.Xi11 = parseInt(digitosCentrales);
+
+        if(this.flag==false){
+          if (this.Xi11 === 0 || this.numerosAleatorios.some(elemento => elemento.Xi11 === this.Xi11)) {
+            this.mensaje = `La secuencia se degenera en la posición ${i} con el valor: ${this.Xi11}`;
+            this.flag = true;
+          }
         }
 
-      }else{
-        if (this.Yi.length % 2 !== 0) {
-          this.Yi = "0" + this.Yi;
-        }
+
+        //this.ri=this.Xi11/(Math.pow(10,cantidadDigitos));
+        this.ri = parseFloat((this.Xi11 / Math.pow(10, cantidadDigitos)).toFixed(4));
+        this.numerosAleatorios.push({i: i, Xi1: this.Xi1, Xi: this.Xi, Yi: this.Yi,Xi11:this.Xi11, ri: this.ri});
+        this.aux1 = this.Xi;
+        this.aux2 = this.Xi11;
+
+
+
       }
-      // Calcula la posición de inicio para los 'cantidadDigitos' centrales
-      const start = Math.floor((this.Yi.length - cantidadDigitos) / 2);
-      const digitosCentrales = this.Yi.substring(start, start + cantidadDigitos);
-      this.Xi11 = parseInt(digitosCentrales);
+      this.data.data = this.numerosAleatorios;
 
-      if(this.flag==false){
-        if (this.Xi11 === 0 || this.numerosAleatorios.some(elemento => elemento.Xi11 === this.Xi11)) {
-          this.mensaje = `La secuencia se degenera en la posición ${i} con el valor: ${this.Xi11}`;
-          this.flag = true;
-        }
-      }
-
-
-      //this.ri=this.Xi11/(Math.pow(10,cantidadDigitos));
-      this.ri = parseFloat((this.Xi11 / Math.pow(10, cantidadDigitos)).toFixed(4));
-      this.numerosAleatorios.push({i: i, Xi1: this.Xi1, Xi: this.Xi, Yi: this.Yi,Xi11:this.Xi11, ri: this.ri});
-      this.aux1 = this.Xi;
-      this.aux2 = this.Xi11;
-
-
-
+      console.log(this.numerosAleatorios);
     }
-    this.data.data = this.numerosAleatorios;
 
-    console.log(this.numerosAleatorios);
 
   }
 
