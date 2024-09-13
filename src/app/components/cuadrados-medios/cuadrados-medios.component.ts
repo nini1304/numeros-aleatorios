@@ -35,7 +35,7 @@ export class CuadradosMediosComponent {
 
   private _httpClient = inject(HttpClient);
 
-  displayedColumns: string[] = ['i', 'Yi','Resultado' ,'Xi', 'ri'];
+  displayedColumns: string[] = ['i', 'Yi','Operacion','Resultado' ,'Xi', 'ri'];
   data = new MatTableDataSource<NumerosAleatorios>(this.numerosAleatorios);
 
 
@@ -55,9 +55,9 @@ export class CuadradosMediosComponent {
   validateNonNegative(event: any) {
     const inputValue = event.target.value;
 
-    if (inputValue < 0) {
+    if (inputValue < 0 || inputValue % 1 !== 0) {
       event.target.value = 0; // Si el valor es negativo, se corrige a 0
-      alert('El valor no puede ser negativo');
+      alert('El valor no puede ser negativo ni decimal');
     }
   }
   vaciarX(){
@@ -83,50 +83,58 @@ export class CuadradosMediosComponent {
   }
 
   generarNumerosAleatorios() {
-    this.flag = false;
-    this.vaciarTabla();
-    this.aux2 = this.value;
-    const cantidadDigitos = this.aux2.toString().length;
-
-    for(let i = 1; i <= this.value2; i++) {
-      this.Yi = this.aux2;
-      const aux = Math.pow(this.Yi, 2);
-      this.resultado = aux.toString();
-      if(cantidadDigitos % 2 !== 0) {
-        if (this.resultado.length % 2 == 0) {
-          this.resultado = "0" + this.resultado;
-        }
-
-      }else{
-        if (this.resultado.length % 2 !== 0) {
-          this.resultado = "0" + this.resultado;
-        }
-      }
-
-      // Calcula la posición de inicio para los 'cantidadDigitos' centrales
-      const start = Math.floor((this.resultado.length - cantidadDigitos) / 2);
-      const digitosCentrales = this.resultado.substring(start, start + cantidadDigitos);
-      this.Xi = parseInt(digitosCentrales);
-
-      if(this.flag==false){
-        if (this.Xi === 0 || this.numerosAleatorios.some(elemento => elemento.Xi === this.Xi)) {
-          this.mensaje = `La secuencia se degenera en la posición ${i} con el valor: ${this.Xi}`;
-          this.flag = true;
-        }
-      }
-
-
-      //this.ri=this.Xi/(Math.pow(10,cantidadDigitos));
-      this.ri = parseFloat((this.Xi / Math.pow(10, cantidadDigitos)).toFixed(4));
-      this.numerosAleatorios.push({i: i, Yi: this.Yi, Resultado: this.resultado, Xi: this.Xi, ri: this.ri});
-      this.aux2 = this.Xi;
-
-
+    if(this.value==0 || this.value2==0){
+      alert('Por favor, ingrese los valores de la semilla y la cantidad de números a generar')
 
     }
-    this.data.data = this.numerosAleatorios;
+    else{
+      this.flag = false;
+      this.vaciarTabla();
+      this.aux2 = this.value;
+      const cantidadDigitos = this.aux2.toString().length;
 
-    console.log(this.numerosAleatorios);
+      for(let i = 1; i <= this.value2; i++) {
+        this.Yi = this.aux2;
+        const aux = Math.pow(this.Yi, 2);
+        this.resultado = aux.toString();
+        if(cantidadDigitos % 2 !== 0) {
+          if (this.resultado.length % 2 == 0) {
+            this.resultado = "0" + this.resultado;
+          }
+
+        }else{
+          if (this.resultado.length % 2 !== 0) {
+            this.resultado = "0" + this.resultado;
+          }
+        }
+
+        // Calcula la posición de inicio para los 'cantidadDigitos' centrales
+        const start = Math.floor((this.resultado.length - cantidadDigitos) / 2);
+        const digitosCentrales = this.resultado.substring(start, start + cantidadDigitos);
+        this.Xi = parseInt(digitosCentrales);
+
+        if(this.flag==false){
+          if (this.Xi === 0 || this.numerosAleatorios.some(elemento => elemento.Xi === this.Xi)) {
+            this.mensaje = `La secuencia se degenera en la posición ${i} con el valor: ${this.Xi}`;
+            this.flag = true;
+          }
+        }
+
+
+        this.ri=this.Xi/(Math.pow(10,cantidadDigitos));
+       // this.ri = parseFloat((this.Xi / Math.pow(10, cantidadDigitos)).toFixed(4));
+        this.numerosAleatorios.push({i: i, Yi: this.Yi, Resultado: this.resultado, Xi: this.Xi, ri: this.ri});
+        this.aux2 = this.Xi;
+
+
+
+      }
+      this.data.data = this.numerosAleatorios;
+
+      console.log(this.numerosAleatorios);
+
+    }
+
 
   }
 }
